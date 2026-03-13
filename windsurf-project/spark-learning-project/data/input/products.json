@@ -1,0 +1,30 @@
+{"product_id": 501, "name": "Laptop Pro", "category": "Electronics", "brand": "TechCorp", "price": 1200.00, "stock": 45, "description": "High-performance laptop with 16GB RAM and 512GB SSD"}
+{"product_id": 502, "name": "Wireless Mouse", "category": "Accessories", "brand": "Peripherals Inc", "price": 25.00, "stock": 200, "description": "Ergonomic wireless mouse with long battery life"}
+{"product_id": 503, "name": "USB-C Hub", "category": "Accessories", "brand": "ConnectTech", "price": 45.00, "stock": 150, "description": "7-in-1 USB-C hub with HDMI, USB 3.0, and SD card reader"}
+{"product_id": 504, "name": "Smartphone X", "category": "Electronics", "brand": "MobileTech", "price": 899.00, "stock": 60, "description": "Latest smartphone with 5G and advanced camera system"}
+{"product_id": 505, "name": "Bluetooth Speaker", "category": "Electronics", "brand": "AudioPro", "price": 150.00, "stock": 80, "description": "Portable Bluetooth speaker with premium sound quality"}
+{"product_id": 506, "name": "Monitor 4K", "category": "Electronics", "brand": "DisplayCorp", "price": 400.00, "stock": 35, "description": "27-inch 4K monitor with HDR support"}
+{"product_id": 507, "name": "Keyboard Mechanical", "category": "Accessories", "brand": "KeyMaster", "price": 120.00, "stock": 90, "description": "Mechanical keyboard with RGB backlighting"}
+{"product_id": 508, "name": "Tablet Pro", "category": "Electronics", "brand": "TechCorp", "price": 650.00, "stock": 55, "description": "Professional tablet with stylus support"}
+{"product_id": 509, "name": "Webcam HD", "category": "Accessories", "brand": "VideoTech", "price": 80.00, "stock": 120, "description": "1080p HD webcam with noise cancellation"}
+{"product_id": 510, "name": "Laptop Stand", "category": "Accessories", "brand": "ErgoTech", "price": 35.00, "stock": 180, "description": "Adjustable aluminum laptop stand"}
+{"product_id": 511, "name": "Gaming Console", "category": "Electronics", "brand": "GamePro", "price": 499.00, "stock": 40, "description": "Latest gaming console with 4K gaming support"}
+{"product_id": 512, "name": "External SSD", "category": "Storage", "brand": "StorageTech", "price": 120.00, "stock": 100, "description": "1TB external SSD with USB 3.1"}
+{"product_id": 513, "name": "Smart Watch", "category": "Electronics", "brand": "WearableTech", "price": 350.00, "stock": 70, "description": "Fitness tracking smartwatch with heart rate monitor"}
+{"product_id": 514, "name": "HDMI Cable", "category": "Accessories", "brand": "CablePro", "price": 15.00, "stock": 300, "description": "High-speed HDMI cable 4K compatible"}
+{"product_id": 515, "name": "Graphics Tablet", "category": "Accessories", "brand": "DigitalArt", "price": 280.00, "stock": 25, "description": "Professional graphics tablet for digital artists"}
+{"product_id": 516, "name": "VR Headset", "category": "Electronics", "brand": "VirtualTech", "price": 599.00, "stock": 30, "description": "Immersive VR headset with motion tracking"}
+{"product_id": 517, "name": "Power Bank", "category": "Accessories", "brand": "PowerTech", "price": 40.00, "stock": 150, "description": "20000mAh portable power bank with fast charging"}
+{"product_id": 518, "name": "Wireless Earbuds", "category": "Electronics", "brand": "AudioPro", "price": 180.00, "stock": 85, "description": "True wireless earbuds with noise cancellation"}
+{"product_id": 519, "name": "Desk Lamp", "category": "Accessories", "brand": "LightTech", "price": 45.00, "stock": 110, "description": "LED desk lamp with adjustable brightness"}
+{"product_id": 520, "name": "Router WiFi", "category": "Electronics", "brand": "NetworkPro", "price": 89.00, "stock": 65, "description": "Dual-band WiFi 6 router"}
+{"product_id": 521, "name": "Mouse Pad XL", "category": "Accessories", "brand": "Peripherals Inc", "price": 20.00, "stock": 200, "description": "Extended gaming mouse pad with non-slip base"}
+{"product_id": 522, "name": "Smartphone Y", "category": "Electronics", "brand": "MobileTech", "price": 799.00, "stock": 50, "description": "Mid-range smartphone with excellent camera"}
+{"product_id": 523, "name": "USB Flash Drive", "category": "Storage", "brand": "StorageTech", "price": 12.00, "stock": 500, "description": "64GB USB 3.0 flash drive"}
+{"product_id": 524, "name": "Portable Speaker", "category": "Electronics", "brand": "AudioPro", "price": 75.00, "stock": 95, "description": "Compact portable speaker with waterproof design"}
+{"product_id": 525, "name": "Cable Organizer", "category": "Accessories", "brand": "OrganizeTech", "price": 10.00, "stock": 250, "description": "Desktop cable management organizer"}
+{"product_id": 526, "name": "Laptop Basic", "category": "Electronics", "brand": "TechCorp", "price": 550.00, "stock": 75, "description": "Entry-level laptop for everyday use"}
+{"product_id": 527, "name": "Phone Case", "category": "Accessories", "brand": "ProtectTech", "price": 25.00, "stock": 400, "description": "Protective phone case with kickstand"}
+{"product_id": 528, "name": "Smart TV", "category": "Electronics", "brand": "DisplayCorp", "price": 1200.00, "stock": 20, "description": "55-inch 4K Smart TV with streaming apps"}
+{"product_id": 529, "name": "External HDD", "category": "Storage", "brand": "StorageTech", "price": 80.00, "stock": 80, "description": "2TB external hard drive with USB 3.0"}
+{"product_id": 530, "name": "Gaming Mouse", "category": "Accessories", "brand": "GamePro", "price": 60.00, "stock": 130, "description": "High-precision gaming mouse with RGB lighting"}

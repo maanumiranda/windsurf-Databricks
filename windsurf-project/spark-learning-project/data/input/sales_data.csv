@@ -1,0 +1,31 @@
+order_id,customer_id,product_id,product_name,category,quantity,unit_price,total_amount,order_date,region
+1,101,501,Laptop Pro,Electronics,1,1200.00,1200.00,2023-01-15,North
+2,102,502,Wireless Mouse,Accessories,2,25.00,50.00,2023-01-16,South
+3,103,503,USB-C Hub,Accessories,1,45.00,45.00,2023-01-17,East
+4,104,504,Smartphone X,Electronics,1,899.00,899.00,2023-01-18,West
+5,105,505,Bluetooth Speaker,Electronics,1,150.00,150.00,2023-01-19,North
+6,101,506,Monitor 4K,Electronics,2,400.00,800.00,2023-01-20,South
+7,106,507,Keyboard Mechanical,Accessories,1,120.00,120.00,2023-01-21,East
+8,107,508,Tablet Pro,Electronics,1,650.00,650.00,2023-01-22,West
+9,102,509,Webcam HD,Accessories,1,80.00,80.00,2023-01-23,North
+10,108,510,Laptop Stand,Accessories,1,35.00,35.00,2023-01-24,South
+11,109,511,Gaming Console,Electronics,1,499.00,499.00,2023-01-25,East
+12,103,512,External SSD,Storage,2,120.00,240.00,2023-01-26,West
+13,110,513,Smart Watch,Electronics,1,350.00,350.00,2023-01-27,North
+14,104,514,HDMI Cable,Accessories,3,15.00,45.00,2023-01-28,South
+15,111,515,Graphics Tablet,Accessories,1,280.00,280.00,2023-01-29,East
+16,105,516,VR Headset,Electronics,1,599.00,599.00,2023-01-30,West
+17,112,517,Power Bank,Accessories,2,40.00,80.00,2023-01-31,North
+18,106,518,Wireless Earbuds,Electronics,1,180.00,180.00,2023-02-01,South
+19,113,519,Desk Lamp,Accessories,1,45.00,45.00,2023-02-02,East
+20,107,520,Router WiFi,Electronics,1,89.00,89.00,2023-02-03,West
+21,108,521,Mouse Pad XL,Accessories,2,20.00,40.00,2023-02-04,North
+22,114,522,Smartphone Y,Electronics,1,799.00,799.00,2023-02-05,South
+23,109,523,USB Flash Drive,Storage,5,12.00,60.00,2023-02-06,East
+24,115,524,Portable Speaker,Electronics,1,75.00,75.00,2023-02-07,West
+25,110,525,Cable Organizer,Accessories,3,10.00,30.00,2023-02-08,North
+26,116,526,Laptop Basic,Electronics,1,550.00,550.00,2023-02-09,South
+27,111,527,Phone Case,Accessories,2,25.00,50.00,2023-02-10,East
+28,117,528,Smart TV,Electronics,1,1200.00,1200.00,2023-02-11,West
+29,112,529,External HDD,Storage,1,80.00,80.00,2023-02-12,North
+30,118,530,Gaming Mouse,Accessories,1,60.00,60.00,2023-02-13,South

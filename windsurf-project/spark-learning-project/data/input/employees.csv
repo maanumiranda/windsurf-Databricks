@@ -1,0 +1,21 @@
+id,first_name,last_name,age,department,salary,hire_date,position
+1,John,Smith,28,Engineering,75000.0,2022-01-15,Software Engineer
+2,Jane,Doe,32,Marketing,65000.0,2021-06-01,Marketing Manager
+3,Bob,Johnson,35,Engineering,85000.0,2020-03-10,Senior Developer
+4,Alice,Williams,29,Sales,60000.0,2022-08-20,Sales Representative
+5,Charlie,Brown,31,Engineering,90000.0,2019-11-05,Tech Lead
+6,Diana,Prince,26,HR,55000.0,2022-02-14,HR Specialist
+7,Eve,Wilson,27,Marketing,62000.0,2022-09-01,Marketing Coordinator
+8,Frank,Miller,38,Engineering,95000.0,2018-07-12,Architect
+9,Grace,Davis,30,Sales,68000.0,2021-04-08,Sales Manager
+10,Henry,Garcia,25,Engineering,72000.0,2022-05-20,Junior Developer
+11,Iris,Martinez,33,Marketing,70000.0,2020-12-15,Senior Marketing
+12,Jack,Anderson,29,Sales,65000.0,2021-09-30,Sales Executive
+13,Karen,Thomas,34,Engineering,88000.0,2019-05-18,Lead Developer
+14,Larry,Jackson,27,HR,58000.0,2022-03-22,HR Coordinator
+15,Martin,White,31,Marketing,67000.0,2021-07-12,Marketing Analyst
+16,Nancy,Harris,28,Engineering,78000.0,2020-10-08,Software Engineer
+17,Oscar,Clark,36,Sales,72000.0,2019-02-28,Sales Director
+18,Paul,Lewis,26,Engineering,70000.0,2022-01-10,Associate Developer
+19,Quinn,Walker,32,Marketing,69000.0,2020-11-20,Content Strategist
+20,Rachel,Hall,29,HR,60000.0,2021-08-15,HR Manager
