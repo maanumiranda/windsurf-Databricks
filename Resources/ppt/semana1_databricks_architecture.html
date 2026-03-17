@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Databricks Architecture - Complete Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #FF3621;
+            margin-bottom: 15px;
+            font-size: 36px;
+        }
+        
+        h2 {
+            color: #2C3E50;
+            margin: 40px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #FF3621;
+            font-size: 28px;
+        }
+        
+        h3 {
+            color: #34495E;
+            margin: 30px 0 15px 0;
+            font-size: 22px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 40px;
+            font-size: 18px;
+        }
+        
+        .diagram-container {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 2px solid #e9ecef;
+        }
+        
+        .architecture-layer {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 5px solid #FF3621;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .layer-title {
+            font-weight: bold;
+            color: #FF3621;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .layer-content {
+            color: #495057;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+        
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .component {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .component h4 {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        .component p {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .feature-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .feature-box strong {
+            color: #1976D2;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .flow-box {
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 20px;
+            min-width: 150px;
+            text-align: center;
+            margin: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .flow-arrow {
+            font-size: 30px;
+            color: #667eea;
+            margin: 0 10px;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        .storage-format {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .pros {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        
+        .cons {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        
+        .icon {
+            font-size: 24px;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏗️ Databricks Architecture</h1>
+        <p class="subtitle">Complete Guide with Delta Lake, Storage Formats & File Formats</p>
+        
+        <!-- ==================== OVERVIEW ==================== -->
+        <h2>📐 Architecture Overview</h2>
+        
+        <div class="diagram-container">
+            <div class="flow-diagram">
+                <div class="flow-box" style="background: #e3f2fd;">
+                    <strong>🖥️ Control Plane</strong>
+                    <p style="font-size: 12px; margin-top: 8px;">Web UI, Notebooks, Jobs, Security</p>
+                </div>
+                <div class="flow-arrow">↕️</div>
+                <div class="flow-box" style="background: #fff3e0;">
+                    <strong>⚙️ Data Plane</strong>
+                    <p style="font-size: 12px; margin-top: 8px;">Compute Clusters, Processing</p>
+                </div>
+                <div class="flow-arrow">↕️</div>
+                <div class="flow-box" style="background: #e8f5e9;">
+                    <strong>💾 Storage</strong>
+                    <p style="font-size: 12px; margin-top: 8px;">Delta Lake, Cloud Storage</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="architecture-layer">
+            <div class="layer-title">🎯 Three-Tier Architecture</div>
+            <div class="layer-content">
+                <p><strong>1. Control Plane (Managed by Databricks):</strong> Handles web UI, notebooks, job scheduling, cluster management, and security.</p>
+                <p><strong>2. Data Plane (Your Cloud Account):</strong> Compute resources (clusters) that process data, run in your VPC/VNet.</p>
+                <p><strong>3. Storage Layer (Your Cloud Storage):</strong> Data stored in S3/ADLS/GCS, accessed via Delta Lake.</p>
+            </div>
+        </div>
+        
+        <!-- ==================== DELTA LAKE ==================== -->
+        <h2>🔷 Delta Lake - The Storage Layer Foundation</h2>
+        
+        <div class="feature-box">
+            <strong>What is Delta Lake?</strong>
+            <p>Delta Lake is an <span class="highlight">open-source storage layer</span> that brings ACID transactions, scalable metadata handling, and unified streaming/batch processing to data lakes. It sits on top of cloud object storage (S3, ADLS, GCS) and provides database-like reliability.</p>
+        </div>
+        
+        <h3>🔧 Delta Lake Architecture</h3>
+        
+        <div class="diagram-container">
+            <div style="background: white; padding: 20px; border-radius: 10px;">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div style="background: #FF3621; color: white; padding: 15px; border-radius: 8px; display: inline-block; margin: 10px;">
+                        <strong>Delta Lake Layer</strong><br>
+                        <span style="font-size: 12px;">ACID Transactions | Time Travel | Schema Evolution</span>
+                    </div>
+                </div>
+                
+                <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap;">
+                    <div style="background: #e3f2fd; padding: 15px; border-radius: 8px; margin: 10px; flex: 1; min-width: 200px;">
+                        <strong>📄 Transaction Log</strong><br>
+                        <span style="font-size: 13px;">_delta_log/ directory<br>JSON files tracking changes</span>
+                    </div>
+                    
+                    <div style="font-size: 24px; margin: 0 10px;">+</div>
+                    
+                    <div style="background: #fff3e0; padding: 15px; border-radius: 8px; margin: 10px; flex: 1; min-width: 200px;">
+                        <strong>📦 Data Files</strong><br>
+                        <span style="font-size: 13px;">Parquet files<br>Columnar storage</span>
+                    </div>
+                    
+                    <div style="font-size: 24px; margin: 0 10px;">=</div>
+                    
+                    <div style="background: #e8f5e9; padding: 15px; border-radius: 8px; margin: 10px; flex: 1; min-width: 200px;">
+                        <strong>✨ Delta Table</strong><br>
+                        <span style="font-size: 13px;">ACID-compliant<br>Versioned data lake</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <h3>🎁 Delta Lake Key Features</h3>
+        
+        <div class="component-grid">
+            <div class="component">
+                <h4>⚡ ACID Transactions</h4>
+                <p>Atomicity, Consistency, Isolation, Durability - database guarantees on data lake storage</p>
+            </div>
+            
+            <div class="component">
+                <h4>🕰️ Time Travel</h4>
+                <p>Query historical versions of data, rollback changes, audit data changes over time</p>
+            </div>
+            
+            <div class="component">
+                <h4>📊 Schema Evolution</h4>
+                <p>Automatically handle schema changes, add/remove columns without rewriting data</p>
+            </div>
+            
+            <div class="component">
+                <h4>🔄 Unified Batch/Stream</h4>
+                <p>Single API for both batch and streaming data processing</p>
+            </div>
+            
+            <div class="component">
+                <h4>🗜️ Data Compaction</h4>
+                <p>Optimize small files into larger ones for better query performance</p>
+            </div>
+            
+            <div class="component">
+                <h4>🗑️ Vacuum & Cleanup</h4>
+                <p>Remove old versions and unnecessary files to save storage costs</p>
+            </div>
+        </div>
+        
+        <!-- ==================== STORAGE FORMATS ==================== -->
+        <h2>💾 Storage Formats in Databricks</h2>
+        
+        <p style="margin: 20px 0;">Databricks supports multiple storage formats, each optimized for different use cases:</p>
+        
+        <h3>1️⃣ Delta Lake (Recommended)</h3>
+        
+        <div class="storage-format">
+            <strong>🔷 Delta Lake Format</strong>
+            <p style="margin-top: 10px;"><strong>Storage:</strong> Parquet files + Transaction log (_delta_log/)</p>
+            <p><strong>Best For:</strong> Production data pipelines, analytics, ML, any workload requiring reliability</p>
+        </div>
+        
+        <div class="pros-cons">
+            <div class="pros">
+                <strong style="color: #28a745;">✅ Pros:</strong>
+                <ul style="margin-top: 8px; padding-left: 20px;">
+                    <li>ACID transactions</li>
+                    <li>Time travel & versioning</li>
+                    <li>Schema enforcement & evolution</li>
+                    <li>Optimized performance (Z-ordering)</li>
+                    <li>Concurrent reads/writes</li>
+                    <li>Data quality checks (expectations)</li>
+                </ul>
+            </div>
+            
+            <div class="cons">
+                <strong style="color: #dc3545;">❌ Cons:</strong>
+                <ul style="margin-top: 8px; padding-left: 20px;">
+                    <li>Slightly more storage (transaction log)</li>
+                    <li>Learning curve for optimization</li>
+                    <li>Requires maintenance (VACUUM, OPTIMIZE)</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="code-block">
+# Create Delta table
+df.write.format("delta").save("/mnt/delta/customers")
+
+# With partitioning
+df.write.format("delta") \
+  .partitionBy("country") \
+  .save("/mnt/delta/customers")
+
+# Read Delta table
+delta_df = spark.read.format("delta").load("/mnt/delta/customers")
+        </div>
+        
+        <h3>2️⃣ Apache Parquet</h3>
+        
+        <div class="storage-format">
+            <strong>📦 Parquet Format</strong>
+            <p style="margin-top: 10px;"><strong>Storage:</strong> Columnar binary format, highly compressed</p>
+            <p><strong>Best For:</strong> Read-heavy analytics, static datasets, archival storage</p>
+        </div>
+        
+        <div class="pros-cons">
+            <div class="pros">
+                <strong style="color: #28a745;">✅ Pros:</strong>
+                <ul style="margin-top: 8px; padding-left: 20px;">
+                    <li>Excellent compression (70-90% reduction)</li>
+                    <li>Fast columnar reads</li>
+                    <li>Predicate pushdown support</li>
+                    <li>Wide ecosystem support</li>
+                    <li>Schema embedded in files</li>
+                </ul>
+            </div>
+            
+            <div class="cons">
+                <strong style="color: #dc3545;">❌ Cons:</strong>
+                <ul style="margin-top: 8px; padding-left: 20px;">
+                    <li>No ACID transactions</li>
+                    <li>No schema evolution</li>
+                    <li>Difficult to update/delete rows</li>
+                    <li>Small file problem</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="code-block">
+# Write Parquet
+df.write.format("parquet") \
+  .mode("overwrite") \
+  .save("/mnt/parquet/customers")
+
+# Read Parquet
+parquet_df = spark.read.format("parquet") \
+  .load("/mnt/parquet/customers")
+        </div>
+        
+        <h3>3️⃣ Apache Avro</h3>
+        
+        <div class="storage-format">
+            <strong>📋 Avro Format</strong>
+            <p style="margin-top: 10px;"><strong>Storage:</strong> Row-based binary format with schema</p>
+            <p><strong>Best For:</strong> Streaming data, write-heavy workloads, schema evolution</p>
+        </div>
+        
+        <div class="pros-cons">
+            <div class="pros">
+                <strong style="color: #28a745;">✅ Pros:</strong>
+                <ul style="margin-top: 8px; padding-left: 20px;">
+                    <li>Great for write-heavy workloads</li>
+                    <li>Schema evolution support</li>
+                    <li>Compact binary format</li>
+                    <li>Splittable for Hadoop/Spark</li>
+                </ul>
+            </div>
+            
+            <div class="cons">
+                <strong style="color: #dc3545;">❌ Cons:</strong>
+                <ul style="margin-top: 8px; padding-left: 20px;">
+                    <li>Slower for analytical queries (row-based)</li>
+                    <li>Larger files than Parquet</li>
+                    <li>Less efficient for columnar operations</li>
+                </ul>
+            </div>
+        </div>
+        
+        <h3>4️⃣ Apache ORC</h3>
+        
+        <div class="storage-format">
+            <strong>🗂️ ORC Format</strong>
+            <p style="margin-top: 10px;"><strong>Storage:</strong> Optimized Row Columnar format</p>
+            <p><strong>Best For:</strong> Hive integration, Hadoop ecosystems</p>
+        </div>
+        
+        <div class="pros-cons">
+            <div class="pros">
+                <strong style="color: #28a745;">✅ Pros:</strong>
+                <ul style="margin-top: 8px; padding-left: 20px;">
+                    <li>Excellent compression</li>
+                    <li>Fast reads with Hive</li>
+                    <li>Built-in indexes</li>
+                    <li>Stripe-based architecture</li>
+                </ul>
+            </div>
+            
+            <div class="cons">
+                <strong style="color: #dc3545;">❌ Cons:</strong>
+                <ul style="margin-top: 8px; padding-left: 20px;">
+                    <li>Less adoption than Parquet</li>
+                    <li>Primarily Hadoop-centric</li>
+                    <li>Limited cross-platform support</li>
+                </ul>
+            </div>
+        </div>
+        
+        <h3>5️⃣ CSV (Text-based)</h3>
+        
+        <div class="storage-format">
+            <strong>📄 CSV Format</strong>
+            <p style="margin-top: 10px;"><strong>Storage:</strong> Plain text, comma-separated values</p>
+            <p><strong>Best For:</strong> Data exchange, human readability, small datasets</p>
+        </div>
+        
+        <div class="pros-cons">
+            <div class="pros">
+                <strong style="color: #28a745;">✅ Pros:</strong>
+                <ul style="margin-top: 8px; padding-left: 20px;">
+                    <li>Human-readable</li>
+                    <li>Universal compatibility</li>
+                    <li>Easy to debug</li>
+                    <li>Simple tooling</li>
+                </ul>
+            </div>
+            
+            <div class="cons">
+                <strong style="color: #dc3545;">❌ Cons:</strong>
+                <ul style="margin-top: 8px; padding-left: 20px;">
+                    <li>No compression (huge files)</li>
+                    <li>No schema enforcement</li>
+                    <li>Slow to parse</li>
+                    <li>Type inference issues</li>
+                    <li>Not suitable for production</li>
+                </ul>
+            </div>
+        </div>
+        
+        <h3>6️⃣ JSON</h3>
+        
+        <div class="storage-format">
+            <strong>🔤 JSON Format</strong>
+            <p style="margin-top: 10px;"><strong>Storage:</strong> Text-based, hierarchical structure</p>
+            <p><strong>Best For:</strong> Semi-structured data, APIs, nested structures</p>
+        </div>
+        
+        <div class="pros-cons">
+            <div class="pros">
+                <strong style="color: #28a745;">✅ Pros:</strong>
+                <ul style="margin-top: 8px; padding-left: 20px;">
+                    <li>Nested data support</li>
+                    <li>Schema flexibility</li>
+                    <li>Human-readable</li>
+                    <li>Wide ecosystem</li>
+                </ul>
+            </div>
+            
+            <div class="cons">
+                <strong style="color: #dc3545;">❌ Cons:</strong>
+                <ul style="margin-top: 8px; padding-left: 20px;">
+                    <li>Large file sizes</li>
+                    <li>Slow parsing</li>
+                    <li>Verbose syntax</li>
+                    <li>Not optimized for analytics</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- ==================== FORMAT COMPARISON ==================== -->
+        <h2>📊 Storage Format Comparison</h2>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Format</th>
+                    <th>Type</th>
+                    <th>Compression</th>
+                    <th>Query Speed</th>
+                    <th>ACID</th>
+                    <th>Best Use Case</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Delta Lake</strong></td>
+                    <td>Columnar (Parquet + log)</td>
+                    <td>⭐⭐⭐⭐⭐</td>
+                    <td>⭐⭐⭐⭐⭐</td>
+                    <td>✅ Yes</td>
+                    <td>Production pipelines, analytics</td>
+                </tr>
+                <tr>
+                    <td><strong>Parquet</strong></td>
+                    <td>Columnar</td>
+                    <td>⭐⭐⭐⭐⭐</td>
+                    <td>⭐⭐⭐⭐</td>
+                    <td>❌ No</td>
+                    <td>Read-heavy analytics</td>
+                </tr>
+                <tr>
+                    <td><strong>Avro</strong></td>
+                    <td>Row-based</td>
+                    <td>⭐⭐⭐</td>
+                    <td>⭐⭐⭐</td>
+                    <td>❌ No</td>
+                    <td>Streaming, write-heavy</td>
+                </tr>
+                <tr>
+                    <td><strong>ORC</strong></td>
+                    <td>Columnar</td>
+                    <td>⭐⭐⭐⭐⭐</td>
+                    <td>⭐⭐⭐⭐</td>
+                    <td>❌ No</td>
+                    <td>Hive/Hadoop ecosystems</td>
+                </tr>
+                <tr>
+                    <td><strong>CSV</strong></td>
+                    <td>Text</td>
+                    <td>⭐</td>
+                    <td>⭐</td>
+                    <td>❌ No</td>
+                    <td>Data exchange, debugging</td>
+                </tr>
+                <tr>
+                    <td><strong>JSON</strong></td>
+                    <td>Text</td>
+                    <td>⭐⭐</td>
+                    <td>⭐⭐</td>
+                    <td>❌ No</td>
+                    <td>Semi-structured, APIs</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <!-- ==================== FILE ORGANIZATION ==================== -->
+        <h2>📁 File Organization & Structure</h2>
+        
+        <h3>Delta Lake File Structure</h3>
+        
+        <div class="code-block">
+/mnt/delta/customers/
+├── _delta_log/
+│   ├── 00000000000000000000.json    # Transaction 0
+│   ├── 00000000000000000001.json    # Transaction 1
+│   ├── 00000000000000000002.json    # Transaction 2
+│   └── 00000000000000000010.checkpoint.parquet  # Checkpoint
+├── part-00000-abc123.snappy.parquet  # Data file 1
+├── part-00001-def456.snappy.parquet  # Data file 2
+├── part-00002-ghi789.snappy.parquet  # Data file 3
+└── country=US/                        # Partition (if partitioned)
+    ├── part-00003-jkl012.snappy.parquet
+    └── part-00004-mno345.snappy.parquet
+        </div>
+        
+        <div class="feature-box">
+            <strong>Transaction Log (_delta_log/):</strong>
+            <p>Every write operation creates a JSON file recording: files added, files removed, metadata changes, statistics. Checkpoint files (every 10 commits) consolidate the log for faster reads.</p>
+        </div>
+        
+        <h3>Partitioning Strategy</h3>
+        
+        <div class="diagram-container">
+            <div style="background: white; padding: 20px; border-radius: 10px;">
+                <strong style="display: block; margin-bottom: 15px; font-size: 18px;">📂 Partition Example: Sales Data by Date</strong>
+                
+                <div class="code-block">
+/sales_data/
+├── year=2025/
+│   ├── month=01/
+│   │   ├── day=01/
+│   │   │   └── part-00000.parquet
+│   │   └── day=02/
+│   │       └── part-00001.parquet
+│   └── month=02/
+│       └── day=01/
+│           └── part-00002.parquet
+└── year=2026/
+    └── month=01/
+        └── day=01/
+            └── part-00003.parquet
+                </div>
+                
+                <div style="margin-top: 20px;">
+                    <strong>Benefits:</strong>
+                    <ul style="margin-top: 8px; padding-left: 20px;">
+                        <li>✅ Partition pruning: Read only relevant files</li>
+                        <li>✅ Faster queries: Skip irrelevant partitions</li>
+                        <li>✅ Organized data: Logical file structure</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ==================== DATABRICKS COMPONENTS ==================== -->
+        <h2>🔧 Databricks Core Components</h2>
+        
+        <div class="component-grid">
+            <div class="component">
+                <h4>📓 Notebooks</h4>
+                <p>Interactive development environment supporting Python, Scala, SQL, R. Collaborative editing, version control, and real-time results visualization.</p>
+            </div>
+            
+            <div class="component">
+                <h4>⚙️ Clusters</h4>
+                <p>Managed Spark clusters with auto-scaling. All-purpose (interactive) or Job clusters (automated). Optimized for different workloads.</p>
+            </div>
+            
+            <div class="component">
+                <h4>📦 Unity Catalog</h4>
+                <p>Unified governance for data and AI. Centralized access control, data lineage, and metadata management across clouds.</p>
+            </div>
+            
+            <div class="component">
+                <h4>🔄 Workflows</h4>
+                <p>Orchestrate data pipelines and ML workflows. Schedule jobs, manage dependencies, monitor execution. Replaces Airflow for many use cases.</p>
+            </div>
+            
+            <div class="component">
+                <h4>🤖 MLflow</h4>
+                <p>End-to-end machine learning lifecycle management. Experiment tracking, model registry, deployment, and monitoring.</p>
+            </div>
+            
+            <div class="component">
+                <h4>🔌 Delta Live Tables</h4>
+                <p>Declarative ETL framework. Define what you want, DLT handles how. Built-in data quality, lineage, and observability.</p>
+            </div>
+        </div>
+        
+        <!-- ==================== MEDALLION ARCHITECTURE ==================== -->
+        <h2>🥇 Medallion Architecture (Lakehouse Pattern)</h2>
+        
+        <div class="diagram-container">
+            <div style="background: white; padding: 30px; border-radius: 10px;">
+                <div style="display: flex; justify-content: space-around; align-items: flex-start; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 250px; margin: 10px;">
+                        <div style="background: #CD7F32; color: white; padding: 20px; border-radius: 10px; text-align: center;">
+                            <div style="font-size: 40px;">🥉</div>
+                            <strong style="font-size: 20px;">Bronze Layer</strong>
+                            <p style="font-size: 14px; margin-top: 10px;">Raw Data</p>
+                        </div>
+                        <div style="background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 8px;">
+                            <strong>Purpose:</strong> Landing zone for raw data
+                            <ul style="margin-top: 8px; font-size: 13px; padding-left: 20px;">
+                                <li>Exact copy from source</li>
+                                <li>No transformations</li>
+                                <li>All data preserved</li>
+                                <li>Format: Delta Lake</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div style="font-size: 40px; align-self: center; margin: 0 10px;">→</div>
+                    
+                    <div style="flex: 1; min-width: 250px; margin: 10px;">
+                        <div style="background: #C0C0C0; color: white; padding: 20px; border-radius: 10px; text-align: center;">
+                            <div style="font-size: 40px;">🥈</div>
+                            <strong style="font-size: 20px;">Silver Layer</strong>
+                            <p style="font-size: 14px; margin-top: 10px;">Cleaned & Validated</p>
+                        </div>
+                        <div style="background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 8px;">
+                            <strong>Purpose:</strong> Enterprise data
+                            <ul style="margin-top: 8px; font-size: 13px; padding-left: 20px;">
+                                <li>Cleaned & validated</li>
+                                <li>Deduplicated</li>
+                                <li>Conformed schemas</li>
+                                <li>Standardized</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div style="font-size: 40px; align-self: center; margin: 0 10px;">→</div>
+                    
+                    <div style="flex: 1; min-width: 250px; margin: 10px;">
+                        <div style="background: #FFD700; color: #333; padding: 20px; border-radius: 10px; text-align: center;">
+                            <div style="font-size: 40px;">🥇</div>
+                            <strong style="font-size: 20px;">Gold Layer</strong>
+                            <p style="font-size: 14px; margin-top: 10px;">Business Ready</p>
+                        </div>
+                        <div style="background: #f8f9fa; padding: 15px; margin-top: 10px; border-radius: 8px;">
+                            <strong>Purpose:</strong> Business analytics
+                            <ul style="margin-top: 8px; font-size: 13px; padding-left: 20px;">
+                                <li>Aggregated metrics</li>
+                                <li>Business logic applied</li>
+                                <li>Optimized for queries</li>
+                                <li>BI/ML ready</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ==================== OPTIMIZATION ==================== -->
+        <h2>⚡ Delta Lake Optimization Features</h2>
+        
+        <h3>1. Z-Ordering (Data Skipping)</h3>
+        
+        <div class="feature-box">
+            <strong>What it does:</strong>
+            <p>Co-locates related data in the same set of files, enabling dramatic data skipping during queries.</p>
+        </div>
+        
+        <div class="code-block">
+-- Optimize with Z-ordering
+OPTIMIZE customers
+ZORDER BY (country, region);
+
+-- Before: Scan 1000 files
+-- After: Scan 10 files (99% data skipping!)
+        </div>
+        
+        <h3>2. File Compaction (OPTIMIZE)</h3>
+        
+        <div class="feature-box">
+            <strong>What it does:</strong>
+            <p>Combines small files into larger, optimally-sized files (target: 1GB each) for better I/O performance.</p>
+        </div>
+        
+        <div class="code-block">
+-- Compact small files
+OPTIMIZE customers;
+
+-- Before: 10,000 files × 1MB = lots of overhead
+-- After: 10 files × 1GB = optimal performance
+        </div>
+        
+        <h3>3. Vacuum (Cleanup Old Files)</h3>
+        
+        <div class="feature-box">
+            <strong>What it does:</strong>
+            <p>Removes files that are no longer referenced by the transaction log, saving storage costs.</p>
+        </div>
+        
+        <div class="code-block">
+-- Remove files older than 7 days
+VACUUM customers RETAIN 168 HOURS;
+
+-- Saves storage but removes Time Travel to those versions
+        </div>
+        
+        <!-- ==================== SUMMARY ==================== -->
+        <h2>📝 Summary & Best Practices</h2>
+        
+        <div class="component-grid">
+            <div class="component" style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%);">
+                <h4>✅ DO Use</h4>
+                <ul style="font-size: 14px; padding-left: 20px; margin-top: 10px;">
+                    <li>Delta Lake for all production workloads</li>
+                    <li>Medallion architecture (Bronze/Silver/Gold)</li>
+                    <li>Partitioning for large tables</li>
+                    <li>Z-ordering on filter columns</li>
+                    <li>Regular OPTIMIZE operations</li>
+                </ul>
+            </div>
+            
+            <div class="component" style="background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);">
+                <h4>❌ DON'T Use</h4>
+                <ul style="font-size: 14px; padding-left: 20px; margin-top: 10px;">
+                    <li>CSV/JSON for production data</li>
+                    <li>Parquet without Delta (missing ACID)</li>
+                    <li>Over-partitioning (too many small partitions)</li>
+                    <li>Frequent VACUUM (lose Time Travel)</li>
+                    <li>Writing to same table from multiple clusters</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 15px; margin: 40px 0; text-align: center;">
+            <h3 style="color: white; margin-bottom: 15px;">🎯 Key Takeaway</h3>
+            <p style="font-size: 18px; line-height: 1.8;">
+                <strong>Databricks = Unified Analytics Platform</strong><br>
+                Built on Apache Spark + Delta Lake + Cloud Storage<br>
+                Providing ACID transactions, schema enforcement, and optimized performance<br>
+                For data engineering, analytics, and machine learning at scale
+            </p>
+        </div>
+        
+        <div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 2px solid #dee2e6; color: #6c757d;">
+            <p><strong>Architecture Documentation</strong> | Created for Data Engineering Training | 2026</p>
+        </div>
+    </div>
+</body>
+</html>
