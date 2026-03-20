@@ -1,0 +1,19 @@
+# Spark Data Processing Project Requirements
+# ===========================================
+
+# Core Spark Dependencies
+pyspark>=3.4.0
+pyarrow>=10.0.0
+
+# Data Processing and Analysis
+pandas>=1.5.0
+numpy>=1.21.0
+
+# Optional: For enhanced functionality
+# matplotlib>=3.5.0  # For plotting (if needed)
+# seaborn>=0.11.0     # For statistical visualizations
+# jupyter>=1.0.0       # For notebook support
+
+# Development and Testing
+pytest>=7.0.0
+pytest-spark>=0.6.0
